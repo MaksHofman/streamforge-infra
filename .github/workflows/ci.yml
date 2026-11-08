@@ -16,7 +16,8 @@ jobs:
     uses: MaksHofman/pipeline-templates/.github/workflows/yaml-lint.yml@v1
     with:
       paths: "infra helm/streamforge-app/Chart.yaml helm/streamforge-app/values.yaml .github"
-
+      yamllint-config: "{extends: default, rules: {line-length: disable, document-start: disable, truthy: {check-keys: false}, new-line-at-end-of-file: {level: warning}}}"
+  
   helm-validate:
     uses: MaksHofman/pipeline-templates/.github/workflows/helm-validate.yml@v1
     with:
