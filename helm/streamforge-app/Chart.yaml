@@ -1,0 +1,6 @@
+apiVersion: v2
+name: streamforge-app
+description: Helm chart for the StreamForge demo HTTP service
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

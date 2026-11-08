@@ -1,0 +1,31 @@
+name: Infrastructure CI
+
+# Calls reusable workflows from the shared pipeline-templates repository.
+# Validation only: no images are built and nothing is deployed to the cluster.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  yaml-lint:
+    uses: MaksHofman/pipeline-templates/.github/workflows/yaml-lint.yml@v1
+    with:
+      paths: "infrastructure helm/streamforge-app/Chart.yaml helm/streamforge-app/values.yaml .github"
+
+  helm-validate:
+    uses: MaksHofman/pipeline-templates/.github/workflows/helm-validate.yml@v1
+    with:
+      chart-path: helm/streamforge-app
+      release-name: streamforge-app
+      manifests-path: infrastructure/namespaces
+
+  trivy-config:
+    uses: MaksHofman/pipeline-templates/.github/workflows/trivy-config-scan.yml@v1
+    with:
+      scan-path: "."
+      severity: "HIGH,CRITICAL"
