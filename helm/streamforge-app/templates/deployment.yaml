@@ -42,5 +42,6 @@ spec:
             periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop: ["ALL"]
